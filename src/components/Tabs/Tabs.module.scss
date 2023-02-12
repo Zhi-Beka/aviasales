@@ -1,0 +1,26 @@
+.filter {
+  width: 100%;
+  background-color: white;
+  height: 50px;
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+}
+
+.btn {
+  flex: 1;
+  text-transform: uppercase;
+  font-weight: 600;
+  @media screen and (max-width: 420px) {
+    font-size: 10px;
+  }
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: #2196f3;
+    color: white;
+  }
+}

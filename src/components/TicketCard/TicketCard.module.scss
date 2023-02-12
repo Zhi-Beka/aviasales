@@ -1,0 +1,30 @@
+.card {
+  width: 100%;
+  height: 184px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 8px;
+  padding: 20px;
+  @media screen and (max-width: 420px) {
+    font-size: 10px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.content > p:first-child {
+  color: #a0b0b9;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
