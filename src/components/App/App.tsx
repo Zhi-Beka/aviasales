@@ -3,6 +3,7 @@ import Filter from '../Filter';
 import TicketList from '../TicketList';
 import style from './App.module.scss';
 import plane from '../../assets/Logo.png';
+import ShowTickets from '../ShowTickets';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <section className={style.section}>
           <Tabs />
           <TicketList />
+          <ShowTickets />
         </section>
       </main>
     </div>

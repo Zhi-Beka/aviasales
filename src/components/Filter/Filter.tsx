@@ -1,9 +1,19 @@
 import style from './Filter.module.scss';
 import { checkboxes } from '../../utils';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+interface FilterState {
+  filter: string;
+}
+
+interface IRootState {
+  filter: FilterState;
+}
 
 const Filter: React.FC = () => {
   const [state, setState] = useState(checkboxes);
+  const data = useSelector<IRootState, string>((state) => state.filter.filter);
 
   const updateCheckBox = (id: number) => {
     setState((state) => state.map((el, index) => (index === id ? { ...el, checked: !el.checked } : el)));
