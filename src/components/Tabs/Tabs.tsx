@@ -5,7 +5,6 @@ import style from './Tabs.module.scss';
 const Tabs: React.FC = () => {
   const buttons = useSelector((state: RootState) => state.sort);
 
-  console.log(buttons);
   return (
     <div className={style.filter}>
       {buttons.map((el) => (
