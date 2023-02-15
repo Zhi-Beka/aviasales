@@ -1,36 +1,25 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import style from './Filter.module.scss';
-import { checkboxes } from '../../utils';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 
-interface FilterState {
-  filter: string;
-}
-
-interface IRootState {
-  filter: FilterState;
-}
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { checkboxType } from '../../types/filterTypes';
 
 const Filter: React.FC = () => {
-  const [state, setState] = useState(checkboxes);
-  const data = useSelector<IRootState, string>((state) => state.filter.filter);
+  const data = useSelector((state: RootState) => state.filter);
+  const dispatch = useDispatch();
 
-  const updateCheckBox = (id: number) => {
-    setState((state) => state.map((el, index) => (index === id ? { ...el, checked: !el.checked } : el)));
+  const handleChange = (label: string, id: number): void => {
+    dispatch({ type: label, payload: { id, label } });
   };
 
-  const filter = state.map((el, index) => {
+  const filterData = data.map((el: checkboxType, index: number) => {
     return (
       <label htmlFor={el.title} key={index}>
-        <input
-          type='checkbox'
-          id={el.title}
-          name={el.title}
-          checked={el.checked}
-          onChange={() => updateCheckBox(index)}
-        />
+        <input type='checkbox' name={el.title} checked={el.checked} onChange={() => handleChange(el.title, index)} />
         <span></span>
-
         <span className={style.label}>{el.title}</span>
       </label>
     );
@@ -39,7 +28,7 @@ const Filter: React.FC = () => {
   return (
     <div className={style.box}>
       <h1>Количество пересадок</h1>
-      <form className={style.form}>{filter}</form>
+      <form className={style.form}>{filterData}</form>
     </div>
   );
 };

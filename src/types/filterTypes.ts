@@ -1,4 +1,14 @@
-type checkboxType = { title: string; checked: boolean };
+export interface IFilterState {
+  title: string;
+  checked: boolean;
+}
+
+export interface IFilterActions {
+  type: string;
+  payload?: any;
+}
+
+export type checkboxType = { title: string; checked: boolean };
 
 export const checkboxes: checkboxType[] = [
   { title: 'Все', checked: false },
