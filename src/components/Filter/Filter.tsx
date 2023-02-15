@@ -11,14 +11,15 @@ const Filter: React.FC = () => {
   const data = useSelector((state: RootState) => state.filter);
   const dispatch = useDispatch();
 
-  const handleChange = (label: string, id: number): void => {
-    dispatch({ type: label, payload: { id, label } });
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, checked } = e.target;
+    dispatch({ type: name, payload: { checked, name } });
   };
 
   const filterData = data.map((el: checkboxType, index: number) => {
     return (
-      <label htmlFor={el.title} key={index}>
-        <input type='checkbox' name={el.title} checked={el.checked} onChange={() => handleChange(el.title, index)} />
+      <label key={index}>
+        <input type='checkbox' name={el.title} checked={el?.isChecked || false} onChange={handleChange} />
         <span></span>
         <span className={style.label}>{el.title}</span>
       </label>
@@ -28,7 +29,20 @@ const Filter: React.FC = () => {
   return (
     <div className={style.box}>
       <h1>Количество пересадок</h1>
-      <form className={style.form}>{filterData}</form>
+
+      <form className={style.form}>
+        <label>
+          <input
+            name='Все'
+            type='checkbox'
+            checked={!data.some((el) => el?.isChecked !== true)}
+            onChange={handleChange}
+          />
+          <span></span>
+          <span className={style.label}>Все</span>
+        </label>
+        {filterData}
+      </form>
     </div>
   );
 };

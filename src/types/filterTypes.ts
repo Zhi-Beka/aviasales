@@ -8,12 +8,11 @@ export interface IFilterActions {
   payload?: any;
 }
 
-export type checkboxType = { title: string; checked: boolean };
+export type checkboxType = { title: string; isChecked?: boolean };
 
 export const checkboxes: checkboxType[] = [
-  { title: 'Все', checked: false },
-  { title: 'Без пересадок', checked: false },
-  { title: '1 пересадка', checked: false },
-  { title: '2 пересадки', checked: false },
-  { title: '3 пересадки', checked: false },
+  { title: 'Без пересадок' },
+  { title: '1 пересадка' },
+  { title: '2 пересадки' },
+  { title: '3 пересадки' },
 ];

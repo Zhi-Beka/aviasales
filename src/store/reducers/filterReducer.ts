@@ -5,9 +5,10 @@ export const filterReducer = (state = checkboxes, action: IFilterActions) => {
   switch (action.type) {
     case FilterActions.FILTER_ALL:
       return state.map((el) => {
+        const { checked } = action.payload;
         return {
           ...el,
-          checked: !el.checked,
+          isChecked: checked,
         };
       });
 
@@ -15,16 +16,7 @@ export const filterReducer = (state = checkboxes, action: IFilterActions) => {
     case FilterActions.FILTER_THREE:
     case FilterActions.FILTER_TWO:
     case FilterActions.FILTER_NO:
-      return state.map((el, index) => {
-        const { id } = action.payload;
-        if (index === id) {
-          return {
-            ...el,
-            checked: !el.checked,
-          };
-        }
-        return el;
-      });
+      return state.map((el) => (el.title === action.payload.name ? { ...el, isChecked: action.payload.checked } : el));
 
     default:
       return state;
