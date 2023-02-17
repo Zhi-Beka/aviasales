@@ -1,7 +1,7 @@
 import { FilterActions } from '../actions/filterActions';
 import { IFilterActions, checkboxes } from '../../types/filterTypes';
 
-export const filterReducer = (state = checkboxes, action: IFilterActions) => {
+const filterReducer = (state = checkboxes, action: IFilterActions) => {
   switch (action.type) {
     case FilterActions.FILTER_ALL:
       return state.map((el) => {
@@ -22,3 +22,4 @@ export const filterReducer = (state = checkboxes, action: IFilterActions) => {
       return state;
   }
 };
+export default filterReducer;

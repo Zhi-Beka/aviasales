@@ -1,11 +1,20 @@
 import style from './TicketCard.module.scss';
 import logo from '../../assets/S7logo.png';
+import { FC } from 'react';
+import { ITickets } from '../../types/ticketsType';
 
-const TicketCard: React.FC = () => {
+interface ITicketsCardProps {
+  key: number;
+  price: number;
+}
+
+const TicketCard: FC<ITicketsCardProps> = (props) => {
+  const { price } = props;
+
   return (
     <div className={style.card}>
       <div className={style.header}>
-        <p>13 400P</p>
+        <p>{price}P</p>
         <img alt='logo' src={logo} className={style.img} />
       </div>
       <div className={style.info}>
