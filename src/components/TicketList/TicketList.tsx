@@ -14,8 +14,8 @@ const TicketList: FC = () => {
     getID().then((data) => getTickets(data));
   }, []);
 
-  const ticketsPortion = ticketsData?.slice(0, 10).map((el, index) => {
-    return <TicketCard key={index} price={el.price} />;
+  const ticketsPortion = ticketsData?.slice(0, 5).map((el, index) => {
+    return <TicketCard key={index} price={el.price} info={el.segments} logo={el.carrier} />;
   });
 
   if (loading) {

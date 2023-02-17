@@ -1,50 +1,50 @@
 import style from './TicketCard.module.scss';
-import logo from '../../assets/S7logo.png';
+import { getTime } from '../../helpers/ticketHelper';
 import { FC } from 'react';
-import { ITickets } from '../../types/ticketsType';
 
 interface ITicketsCardProps {
   key: number;
   price: number;
+  info: any[];
+  logo: string;
 }
 
 const TicketCard: FC<ITicketsCardProps> = (props) => {
-  const { price } = props;
+  const { price, info, logo } = props;
+  const logoPath = `https://pics.avs.io/99/36/${logo}.png`;
+  const formatter = new Intl.NumberFormat('ru');
+  const formatPrice = formatter.format(price);
+
+  const infoSegments = info.map((el, index) => {
+    return (
+      <div className={style.info} key={index}>
+        <div className={style.content}>
+          <p className={style.city}>
+            {el.origin}-{el.destination}
+          </p>
+          <p className={style.time}>{getTime(el.date, el.duration)}</p>
+        </div>
+        <div className={style.content}>
+          <p className={style.city}>В ПУТИ</p>
+          <p className={style.time}>
+            {Math.trunc(el.duration / 60)}ч {Math.trunc(el.duration % 60)}м
+          </p>
+        </div>
+        <div className={style.content}>
+          <p className={style.city}>{el.stops.length ? el.stops.length : 'No'} transfers</p>
+          <p className={style.time}>{el.stops.join(', ')}</p>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div className={style.card}>
       <div className={style.header}>
-        <p>{price}P</p>
-        <img alt='logo' src={logo} className={style.img} />
+        <h2>{formatPrice} P</h2>
+        <img alt='logo' src={logoPath} className={style.img} />
       </div>
-      <div className={style.info}>
-        <div className={style.content}>
-          <p className={style.city}>MOS-HKT</p>
-          <p className={style.time}>10:45-08:00</p>
-        </div>
-        <div className={style.content}>
-          <p className={style.city}> in Path</p>
-          <p className={style.time}>21h15m</p>
-        </div>
-        <div className={style.content}>
-          <p className={style.city}>2 transfers</p>
-          <p className={style.time}>HKG,JNB</p>
-        </div>
-      </div>
-      <div className={style.info}>
-        <div className={style.content}>
-          <p className={style.city}>MOS-HKT</p>
-          <p className={style.time}>10:45-08:00</p>
-        </div>
-        <div className={style.content}>
-          <p className={style.city}> in Path</p>
-          <p className={style.time}>21h15m</p>
-        </div>
-        <div className={style.content}>
-          <p className={style.city}>2 transfers</p>
-          <p className={style.time}>HKG,JNB</p>
-        </div>
-      </div>
+      {infoSegments}
     </div>
   );
 };
