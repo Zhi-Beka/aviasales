@@ -1,4 +1,4 @@
-export const getTime = (dateTime: string, minTime: any): string => {
+export const getTime = (dateTime: string, minTime: number): string => {
   const hour = new Date(dateTime).getHours();
   const min = new Date(dateTime).getMinutes();
   const arriveHour = new Date(new Date(dateTime).getHours() + Math.floor(minTime / 60)).getHours();
@@ -12,7 +12,7 @@ export const getTime = (dateTime: string, minTime: any): string => {
   return `${time}:${minute} - ${timeArr}:${minuteArr}`;
 };
 
-export const showTransfers = (len: number) => {
+export const showTransfers = (len: number): string => {
   if (len < 1) {
     return 'без пересадок';
   } else if (len === 1) {
@@ -22,7 +22,7 @@ export const showTransfers = (len: number) => {
   }
 };
 
-export const showTime = (duration: number) => {
+export const showTime = (duration: number): string => {
   const hour = Math.trunc(duration / 60);
   const min = Math.trunc(duration % 60);
   return `${hour}ч ${min}м`;
