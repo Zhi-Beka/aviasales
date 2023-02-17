@@ -11,3 +11,19 @@ export const getTime = (dateTime: string, minTime: any): string => {
 
   return `${time}:${minute} - ${timeArr}:${minuteArr}`;
 };
+
+export const showTransfers = (len: number) => {
+  if (len < 1) {
+    return 'без пересадок';
+  } else if (len === 1) {
+    return `${len}пересадка`;
+  } else {
+    return `${len} пересадки`;
+  }
+};
+
+export const showTime = (duration: number) => {
+  const hour = Math.trunc(duration / 60);
+  const min = Math.trunc(duration % 60);
+  return `${hour}ч ${min}м`;
+};

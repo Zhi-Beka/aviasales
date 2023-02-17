@@ -1,5 +1,5 @@
 import style from './TicketCard.module.scss';
-import { getTime } from '../../helpers/ticketHelper';
+import { getTime, showTime, showTransfers } from '../../helpers/ticketHelper';
 import { FC } from 'react';
 
 interface ITicketsCardProps {
@@ -26,12 +26,10 @@ const TicketCard: FC<ITicketsCardProps> = (props) => {
         </div>
         <div className={style.content}>
           <p className={style.city}>В ПУТИ</p>
-          <p className={style.time}>
-            {Math.trunc(el.duration / 60)}ч {Math.trunc(el.duration % 60)}м
-          </p>
+          <p className={style.time}>{showTime(el.duration)}</p>
         </div>
         <div className={style.content}>
-          <p className={style.city}>{el.stops.length ? el.stops.length : 'No'} transfers</p>
+          <p className={style.city}> {showTransfers(el.stops.length)} </p>
           <p className={style.time}>{el.stops.join(', ')}</p>
         </div>
       </div>
