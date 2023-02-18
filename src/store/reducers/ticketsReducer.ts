@@ -1,8 +1,8 @@
 import { ITicketsState, TicketsAction, TicketsActionTypes } from '../../types/ticketsType';
 
 const initialState: ITicketsState = {
-  ticketsData: [],
   loading: false,
+  ticketsData: [],
   error: false,
 };
 
@@ -11,6 +11,8 @@ export const ticketsReducer = (state = initialState, action: TicketsAction) => {
     case TicketsActionTypes.TICKETS_LOADING:
       return {
         loading: true,
+        ticketsData: [],
+        error: false,
       };
 
     case TicketsActionTypes.TICKETS_SUCCESS:
@@ -23,8 +25,10 @@ export const ticketsReducer = (state = initialState, action: TicketsAction) => {
     case TicketsActionTypes.TICKETS_ERROR:
       return {
         loading: false,
+        ticketsData: [],
         error: true,
       };
+
     default:
       return state;
   }

@@ -1,30 +1,23 @@
-import { FC, useEffect } from 'react';
-//import { useSelector } from 'react-redux';
+import { FC } from 'react';
 import TicketCard from '../TicketCard/TicketCard';
-import { useBindActions } from '../../hooks/useBindActions';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { getID } from '../../store/action-creators/tickets';
+import { generateKey } from '../../helpers/ticketHelper';
+import { TicketsObjectType } from '../../types/ticketsType';
+import { ErrorIndicator } from '../../errorProvider/ErrorMessage';
 
-const TicketList: FC = () => {
-  const { error, ticketsData, loading } = useTypedSelector((state) => state.tickets);
+interface ITicketListProps {
+  data: TicketsObjectType;
+}
+const TicketList: FC<ITicketListProps> = (props) => {
+  const { data } = props;
 
-  const { getTickets } = useBindActions();
-
-  useEffect(() => {
-    getID().then((data) => getTickets(data));
-  }, []);
-
-  const ticketsPortion = ticketsData?.slice(0, 5).map((el, index) => {
-    return <TicketCard key={index} price={el.price} info={el.segments} logo={el.carrier} />;
-  });
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-  if (error) {
-    return <h1>Error!</h1>;
-  }
-  return <>{ticketsPortion}</>;
+  return (
+    <>
+      {data?.map((el: { carrier: string; price: number; segments: any[] }) => {
+        const uniqKey = `_${el.carrier}_${el.price}_`;
+        return <TicketCard key={generateKey(uniqKey)} price={el.price} info={el.segments} logo={el.carrier} />;
+      })}
+    </>
+  );
 };
 
 export default TicketList;

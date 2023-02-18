@@ -1,23 +1,22 @@
-import { FilterActions } from '../actions/filterActions';
-import { IFilterActions, checkboxes } from '../../types/filterTypes';
+interface IFilterState {
+  filterCheckBox: string[];
+}
 
-const filterReducer = (state = checkboxes, action: IFilterActions) => {
+const initialState: IFilterState = {
+  filterCheckBox: ['NONE', 'ONE', 'TWO', 'THREE'],
+};
+
+interface IActionType {
+  type: string;
+  payload: any;
+}
+
+const filterReducer = (state = initialState, action: IActionType) => {
   switch (action.type) {
-    case FilterActions.FILTER_ALL:
-      return state.map((el) => {
-        const { checked } = action.payload;
-        return {
-          ...el,
-          isChecked: checked,
-        };
-      });
-
-    case FilterActions.FILTER_ONE:
-    case FilterActions.FILTER_THREE:
-    case FilterActions.FILTER_TWO:
-    case FilterActions.FILTER_NO:
-      return state.map((el) => (el.title === action.payload.name ? { ...el, isChecked: action.payload.checked } : el));
-
+    case 'ALL':
+      return {
+        state: [],
+      };
     default:
       return state;
   }

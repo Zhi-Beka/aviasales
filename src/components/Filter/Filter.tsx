@@ -1,27 +1,25 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
+
 import style from './Filter.module.scss';
+import { checkboxData } from '../../helpers/filtersName';
+type FilterProps = {
+  onFilterChange: (arg: string) => void;
+  activeFilter: any[];
+};
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { checkboxType } from '../../types/filterTypes';
-
-const Filter: React.FC = () => {
-  const data = useSelector((state: RootState) => state.filter);
-  const dispatch = useDispatch();
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, checked } = e.target;
-    dispatch({ type: name, payload: { checked, name } });
-  };
-
-  const filterData = data.map((el: checkboxType, index: number) => {
+const Filter: React.FC<FilterProps> = ({ onFilterChange, activeFilter }) => {
+  const filterData = checkboxData.map((el) => {
     return (
-      <label key={index}>
-        <input type='checkbox' name={el.title} checked={el?.isChecked || false} onChange={handleChange} />
+      <label key={el.id}>
+        <input
+          type='checkbox'
+          name={el.label}
+          checked={activeFilter?.includes(el.value)}
+          onChange={() => onFilterChange(el.value)}
+        />
         <span></span>
-        <span className={style.label}>{el.title}</span>
+        <span className={style.label}>{el.label}</span>
       </label>
     );
   });
@@ -34,9 +32,10 @@ const Filter: React.FC = () => {
         <label>
           <input
             name='Все'
+            id='all'
             type='checkbox'
-            checked={!data.some((el) => el?.isChecked !== true)}
-            onChange={handleChange}
+            onChange={() => onFilterChange('ALL')}
+            checked={activeFilter?.length === checkboxData.length}
           />
           <span></span>
           <span className={style.label}>Все</span>

@@ -19,9 +19,9 @@ export interface ITickets {
 }
 
 export interface ITicketsState {
-  loading?: boolean;
-  ticketsData?: TicketsObjectType;
-  error?: boolean;
+  loading: boolean;
+  ticketsData: TicketsObjectType;
+  error: boolean;
 }
 
 export enum TicketsActionTypes {
