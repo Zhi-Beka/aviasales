@@ -1,4 +1,4 @@
-import React, { ErrorInfo, ReactNode, Suspense } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -13,11 +13,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     super(props);
     this.state = { hasError: false };
   }
-
-  //static getDerivedStateFromError(error: Error) {
-  //  // Update state so the next render will show the fallback UI.
-  //  return { hasError: true };
-  //}
 
   componentDidCatch() {
     this.setState({ hasError: true });
