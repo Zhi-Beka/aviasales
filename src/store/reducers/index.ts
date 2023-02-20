@@ -1,5 +1,5 @@
 import filterReducer from './filterReducer';
-import sortReducer from './sortReducer';
 import { ticketsReducer } from './ticketsReducer';
+import { showMoreReducer } from './showMoreReducer';
 
-export { filterReducer, sortReducer, ticketsReducer };
+export { filterReducer, ticketsReducer, showMoreReducer };

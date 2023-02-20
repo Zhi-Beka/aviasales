@@ -3,7 +3,6 @@ import { ITicketsState, TicketsAction, TicketsActionTypes } from '../../types/ti
 const initialState: ITicketsState = {
   loading: true,
   ticketsData: [],
-
   searchId: '',
   error: false,
 };
@@ -19,14 +18,12 @@ export const ticketsReducer = (state = initialState, action: TicketsAction) => {
     case TicketsActionTypes.TICKETS_SUCCESS:
       return {
         ...state,
-
         ticketsData: [...state.ticketsData, ...action.payload],
       };
 
     case TicketsActionTypes.TICKETS_ERROR:
       return {
         ...state,
-        loading: false,
         error: action.payload,
       };
 

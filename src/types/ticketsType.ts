@@ -26,7 +26,6 @@ export interface IPayloadData {
 export interface ITicketsState {
   loading: boolean;
   ticketsData: TicketsObjectType;
-  //stopLoading: boolean;
   searchId: string;
   error: boolean | string;
 }

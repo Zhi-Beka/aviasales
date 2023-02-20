@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-
 import style from './ShowTickets.module.scss';
 
 const ShowTickets: FC = () => {
