@@ -27,3 +27,6 @@ export const showTime = (duration: number): string => {
   const min = Math.trunc(duration % 60);
   return `${hour}ч ${min}м`;
 };
+export const generateKey = (pre: string) => {
+  return `${pre}_${new Date().getTime()}`;
+};

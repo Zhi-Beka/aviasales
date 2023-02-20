@@ -1,15 +1,18 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+/* eslint-disable react/prop-types */
+
+import { sortButtonData } from '../../helpers/filtersName';
 import style from './Tabs.module.scss';
 
-const Tabs: React.FC = () => {
-  const buttons = useSelector((state: RootState) => state.sort);
+interface TabsProps {
+  sortHandleChange: (arg1: string) => void;
+}
 
+const Tabs: React.FC<TabsProps> = ({ sortHandleChange }) => {
   return (
     <div className={style.filter}>
-      {buttons.map((el) => (
-        <button className={style.btn} key={el}>
-          {el}
+      {sortButtonData.map((el) => (
+        <button className={style.btn} key={el.label} onClick={() => sortHandleChange(el.value)}>
+          {el.label}
         </button>
       ))}
     </div>

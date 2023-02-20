@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       // You can render any custom fallback UI
       return (
         <Suspense fallback=''>
-          <div style={{ background: 'pink', textAlign: 'center', height: '100vh' }}>
+          <div style={{ background: 'orange', textAlign: 'center', height: '100vh' }}>
             <h1>Something went wrong...</h1>
           </div>
         </Suspense>

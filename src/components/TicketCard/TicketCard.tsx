@@ -3,7 +3,7 @@ import { getTime, showTime, showTransfers } from '../../helpers/ticketHelper';
 import { FC } from 'react';
 
 interface ITicketsCardProps {
-  key: number;
+  key: string;
   price: number;
   info: any[];
   logo: string;

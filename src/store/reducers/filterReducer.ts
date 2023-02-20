@@ -1,22 +1,44 @@
-import { FilterActions } from '../actions/filterActions';
-import { IFilterActions, checkboxes } from '../../types/filterTypes';
+interface IFilterState {
+  activeFilter: string[];
+}
 
-const filterReducer = (state = checkboxes, action: IFilterActions) => {
+const initialState: IFilterState = {
+  activeFilter: ['NONE', 'ONE', 'TWO', 'THREE'],
+};
+
+interface IActionType {
+  type: string;
+  payload: any;
+}
+
+const filterReducer = (state = initialState, action: IActionType) => {
   switch (action.type) {
-    case FilterActions.FILTER_ALL:
-      return state.map((el) => {
-        const { checked } = action.payload;
+    case 'ALL':
+      if (state.activeFilter.length === action.payload.length) {
         return {
-          ...el,
-          isChecked: checked,
+          ...state,
+          activeFilter: [],
         };
-      });
-
-    case FilterActions.FILTER_ONE:
-    case FilterActions.FILTER_THREE:
-    case FilterActions.FILTER_TWO:
-    case FilterActions.FILTER_NO:
-      return state.map((el) => (el.title === action.payload.name ? { ...el, isChecked: action.payload.checked } : el));
+      } else {
+        const checkBox = action.payload.map((item: any) => item.value);
+        return {
+          ...state,
+          activeFilter: checkBox,
+        };
+      }
+    case 'NONE':
+    case 'ONE':
+    case 'TWO':
+    case 'THREE':
+      if (state.activeFilter.includes(action.payload.value)) {
+        const newFilter = state.activeFilter.filter((item: string) => item !== action.payload.value);
+        return {
+          ...state,
+          activeFilter: newFilter,
+        };
+      } else {
+        return { ...state, activeFilter: [...state.activeFilter, action.payload.value] };
+      }
 
     default:
       return state;
