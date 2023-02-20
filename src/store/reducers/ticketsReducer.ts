@@ -1,8 +1,10 @@
 import { ITicketsState, TicketsAction, TicketsActionTypes } from '../../types/ticketsType';
 
 const initialState: ITicketsState = {
-  loading: false,
+  loading: true,
   ticketsData: [],
+
+  searchId: '',
   error: false,
 };
 
@@ -10,24 +12,33 @@ export const ticketsReducer = (state = initialState, action: TicketsAction) => {
   switch (action.type) {
     case TicketsActionTypes.TICKETS_LOADING:
       return {
-        loading: true,
-        ticketsData: [],
-        error: false,
+        ...state,
+        loading: action.payload,
       };
 
     case TicketsActionTypes.TICKETS_SUCCESS:
       return {
-        loading: false,
-        ticketsData: action.payload,
-        error: false,
+        ...state,
+
+        ticketsData: [...state.ticketsData, ...action.payload],
       };
 
     case TicketsActionTypes.TICKETS_ERROR:
       return {
+        ...state,
         loading: false,
-        ticketsData: [],
-        error: true,
+        error: action.payload,
       };
+
+    case TicketsActionTypes.SEARCH_ID: {
+      if (action.payload) {
+        return {
+          ...state,
+          searchId: action.payload,
+        };
+      }
+      return state;
+    }
 
     default:
       return state;

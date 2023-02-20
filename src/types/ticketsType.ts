@@ -18,20 +18,29 @@ export interface ITickets {
   ];
 }
 
+export interface IPayloadData {
+  tickets: TicketsObjectType;
+  stop: boolean;
+}
+
 export interface ITicketsState {
   loading: boolean;
   ticketsData: TicketsObjectType;
-  error: boolean;
+  //stopLoading: boolean;
+  searchId: string;
+  error: boolean | string;
 }
 
 export enum TicketsActionTypes {
   TICKETS_LOADING = 'TICKETS_LOADING',
   TICKETS_SUCCESS = 'TICKETS_SUCCESS',
   TICKETS_ERROR = 'ERROR_TICKETS',
+  SEARCH_ID = 'SEARCH_ID',
 }
 
 interface getTicketsActionsLoading {
   type: TicketsActionTypes.TICKETS_LOADING;
+  payload: boolean;
 }
 
 interface getTicketsActionsSuccess {
@@ -41,6 +50,16 @@ interface getTicketsActionsSuccess {
 
 interface getTicketsActionsError {
   type: TicketsActionTypes.TICKETS_ERROR;
+  payload: string;
 }
 
-export type TicketsAction = getTicketsActionsLoading | getTicketsActionsError | getTicketsActionsSuccess;
+interface getIdSearchAction {
+  type: TicketsActionTypes.SEARCH_ID;
+  payload: string;
+}
+
+export type TicketsAction =
+  | getTicketsActionsLoading
+  | getTicketsActionsError
+  | getTicketsActionsSuccess
+  | getIdSearchAction;

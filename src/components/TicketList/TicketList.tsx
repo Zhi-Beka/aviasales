@@ -2,7 +2,8 @@ import { FC } from 'react';
 import TicketCard from '../TicketCard/TicketCard';
 import { generateKey } from '../../helpers/ticketHelper';
 import { TicketsObjectType } from '../../types/ticketsType';
-import { ErrorIndicator } from '../../errorProvider/ErrorMessage';
+
+import style from './TicketList.module.scss';
 
 interface ITicketListProps {
   data: TicketsObjectType;
