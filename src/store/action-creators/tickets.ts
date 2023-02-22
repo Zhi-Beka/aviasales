@@ -5,21 +5,21 @@ import { ThunkDispatch } from 'redux-thunk';
 
 const API_BASE = 'https://aviasales-test-api.kata.academy/';
 
-export const setId = (id: string) => ({
+const setId = (id: string) => ({
   type: TicketsActionTypes.SEARCH_ID,
   payload: id,
 });
-export const startLoading = (loading: boolean) => ({
+const startLoading = (loading: boolean) => ({
   type: TicketsActionTypes.TICKETS_LOADING,
   payload: loading,
 });
 
-export const cathError = (error: boolean | string) => ({
+const cathError = (error: boolean | string) => ({
   type: TicketsActionTypes.TICKETS_ERROR,
   payload: error,
 });
 
-export const getTicketsData = (data: TicketsObjectType) => ({
+const getTicketsData = (data: TicketsObjectType) => ({
   type: TicketsActionTypes.TICKETS_SUCCESS,
   payload: data,
 });
