@@ -20,7 +20,7 @@ const filterReducer = (state = initialState, action: IActionType) => {
           activeFilter: [],
         };
       } else {
-        const checkBox = action.payload.map((item: any) => item.value);
+        const checkBox = action.payload.map((item: { value: string }) => item.value);
         return {
           ...state,
           activeFilter: checkBox,
