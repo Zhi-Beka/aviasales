@@ -1,4 +1,4 @@
-export type TicketsObjectType = ITickets[];
+export type TicketsObjectType = TicketWithIdType[];
 
 export interface ITickets {
   price: number;
@@ -17,6 +17,8 @@ export interface ITickets {
     },
   ];
 }
+
+export type TicketWithIdType = ITickets & { id: string };
 
 export interface IPayloadData {
   tickets: TicketsObjectType;

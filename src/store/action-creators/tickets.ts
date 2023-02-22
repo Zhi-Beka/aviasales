@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TicketsObjectType, TicketsActionTypes } from '../../types/ticketsType';
+import { TicketsObjectType, TicketsActionTypes, ITickets } from '../../types/ticketsType';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { v4 as uuidv4 } from 'uuid';
 
 const API_BASE = 'https://aviasales-test-api.kata.academy/';
 
@@ -54,8 +55,12 @@ export const fetchTickets = (searchId: string) => {
           return data.json();
         })
         .then(({ tickets, stop }) => {
+          const ticketsWithID = tickets.map((ticket: ITickets) => ({
+            ...ticket,
+            id: uuidv4(),
+          }));
           dispatch(startLoading(true));
-          dispatch(getTicketsData(tickets));
+          dispatch(getTicketsData(ticketsWithID));
           if (!stop) dispatch(fetchTickets(searchId));
           if (stop) {
             dispatch(startLoading(false));

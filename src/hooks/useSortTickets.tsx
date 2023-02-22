@@ -4,7 +4,7 @@ export const useSortTickets = (tickets: Array<ITickets> | any) => {
   const sortTickets = (selectedSort: string) => {
     switch (selectedSort) {
       case 'CHIP':
-        return [...tickets].sort((a: any | number, b: any) => +a.price - +b.price);
+        return [...tickets].sort((a: any, b: any) => +a.price - +b.price);
       case 'FAST':
         return [...tickets].sort((a: any | number, b: any) => {
           const first = a.segments[0].duration + a.segments[1].duration;
