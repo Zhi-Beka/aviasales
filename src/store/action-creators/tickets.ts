@@ -31,11 +31,9 @@ export const getIdSearch = () => {
         .then((data) => data.json())
         .then(({ searchId }) => {
           dispatch(setId(searchId));
-
           return searchId;
         })
         .then((searchId) => {
-          //dispatch(startLoading(true));
           dispatch(fetchTickets(searchId));
         });
     } catch (e) {
@@ -56,7 +54,6 @@ const fetchTickets = (searchId: string) => {
         })
         .then(({ tickets, stop }) => {
           dispatch(startLoading(true));
-
           dispatch(getTicketsData(tickets));
           if (!stop) dispatch(fetchTickets(searchId));
           if (stop) dispatch(startLoading(false));
