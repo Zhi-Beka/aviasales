@@ -3,25 +3,29 @@ import Filter from '../Filter';
 import TicketList from '../TicketList';
 import style from './App.module.scss';
 import plane from '../../assets/Logo.png';
-import ShowTickets from '../ShowTickets';
 import { useBindActions } from '../../hooks/useBindActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
 import { BarLoader } from 'react-spinners';
 import { useFilterTickets } from '../../hooks/useFilterCheckBox';
+import { fetchTickets } from '../../store/action-creators/tickets';
 
 const App: React.FC = () => {
-  const [selectedSort, setSelectedSort] = useState('');
+  const [selectedSort, setSelectedSort] = useState('CHIP');
+  const [amount, setAmount] = useState(5);
   const { getIdSearch } = useBindActions();
-  const { error, ticketsData, loading } = useTypedSelector((state) => state.tickets);
+  const { error, ticketsData, loading, searchId } = useTypedSelector((state) => state.tickets);
   const activeFilter = useTypedSelector((state) => state.filter.activeFilter);
-  const count = useTypedSelector((state) => state.showMore.show);
-  const slicedData = ticketsData.slice(0, count);
-  const filteredTickets = useFilterTickets(activeFilter, slicedData, selectedSort);
+  const filteredTickets = useFilterTickets(activeFilter, ticketsData, selectedSort);
 
   const sortHandleChange = (value: string) => {
     setSelectedSort(value);
   };
+  const handleSliceButton = () => {
+    setAmount(amount + 5);
+  };
+
+  const slicedData = filteredTickets.slice(0, amount);
 
   useEffect(() => {
     getIdSearch();
@@ -38,16 +42,18 @@ const App: React.FC = () => {
       <main className={style.main}>
         <Filter />
         <section className={style.section}>
-          <Tabs sortHandleChange={sortHandleChange} />
+          <Tabs sortHandleChange={sortHandleChange} sort={selectedSort} />
           {load}
           {error && <div>{error}</div>}
-          {!filteredTickets.length && !loading && !error && (
+          {!slicedData.length && !loading && !error && (
             <h4 className={style.warning}>Рейсов, подходящих под заданные фильтры, не найдены</h4>
           )}
 
-          <TicketList data={filteredTickets} />
+          <TicketList data={slicedData} />
 
-          <ShowTickets />
+          <div className={style.show}>
+            <button onClick={handleSliceButton}>Показать еще 5 билетов!</button>
+          </div>
         </section>
       </main>
     </div>

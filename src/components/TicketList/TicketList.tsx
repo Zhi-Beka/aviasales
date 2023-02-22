@@ -5,15 +5,15 @@ import { TicketsObjectType } from '../../types/ticketsType';
 
 interface ITicketListProps {
   data: TicketsObjectType;
+  count?: number;
 }
 const TicketList: FC<ITicketListProps> = (props) => {
   const { data } = props;
 
   return (
     <>
-      {data?.map((el: { carrier: string; price: number; segments: any[] }) => {
-        const uniqKey = `_${el.carrier}_${el.price}_`;
-        return <TicketCard key={generateKey(uniqKey)} price={el.price} info={el.segments} logo={el.carrier} />;
+      {data?.map((el: { carrier: string; price: number; segments: any[] }, index) => {
+        return <TicketCard key={index.toString()} price={el.price} info={el.segments} logo={el.carrier} />;
       })}
     </>
   );

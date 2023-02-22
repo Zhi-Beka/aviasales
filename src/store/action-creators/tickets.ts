@@ -25,12 +25,13 @@ const getTicketsData = (data: TicketsObjectType) => ({
 });
 
 export const getIdSearch = () => {
-  return async (dispatch: ThunkDispatch<Record<string, unknown>, Record<string, unknown>, AnyAction>) => {
+  return (dispatch: ThunkDispatch<Record<string, unknown>, Record<string, unknown>, AnyAction>) => {
     try {
       fetch(`${API_BASE}search`)
         .then((data) => data.json())
         .then(({ searchId }) => {
           dispatch(setId(searchId));
+
           return searchId;
         })
         .then((searchId) => {
@@ -42,8 +43,8 @@ export const getIdSearch = () => {
   };
 };
 
-const fetchTickets = (searchId: string) => {
-  return async (dispatch: ThunkDispatch<Record<string, unknown>, Record<string, unknown>, AnyAction>) => {
+export const fetchTickets = (searchId: string) => {
+  return (dispatch: ThunkDispatch<Record<string, unknown>, Record<string, unknown>, AnyAction>) => {
     try {
       fetch(`${API_BASE}tickets?searchId=${searchId}`)
         .then((data) => {
@@ -56,7 +57,10 @@ const fetchTickets = (searchId: string) => {
           dispatch(startLoading(true));
           dispatch(getTicketsData(tickets));
           if (!stop) dispatch(fetchTickets(searchId));
-          if (stop) dispatch(startLoading(false));
+          if (stop) {
+            dispatch(startLoading(false));
+            return;
+          }
         })
         .catch((error) => {
           if (error.status === 500) {

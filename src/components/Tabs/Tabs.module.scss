@@ -17,10 +17,14 @@
   @media screen and (max-width: 420px) {
     font-size: 10px;
   }
-  &:focus,
-  &:hover,
-  &:active {
-    background-color: #2196f3;
-    color: white;
-  }
+  //&:focus,
+  //&:hover {
+  //  background-color: #2196f3;
+  //  color: white;
+  //}
+}
+
+.activeColor {
+  background-color: #2196f3;
+  color: white;
 }

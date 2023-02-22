@@ -15,9 +15,9 @@ const TicketCard: FC<ITicketsCardProps> = (props) => {
   const formatter = new Intl.NumberFormat('ru');
   const formatPrice = formatter.format(price);
 
-  const infoSegments = info.map((el, index) => {
+  const infoSegments = info.map((el) => {
     return (
-      <div className={style.info} key={index}>
+      <div className={style.info} key={el.origin + el.duration + el.date}>
         <div className={style.content}>
           <p className={style.city}>
             {el.origin}-{el.destination}
