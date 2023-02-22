@@ -2,10 +2,18 @@ import style from './TicketCard.module.scss';
 import { getTime, showTime, showTransfers } from '../../helpers/ticketHelper';
 import { FC } from 'react';
 
+interface Info {
+  origin: string;
+  destination: string;
+  date: string;
+  duration: number;
+  stops: string[];
+}
+
 interface ITicketsCardProps {
   key: string;
   price: number;
-  info: any[];
+  info: Info[];
   logo: string;
 }
 

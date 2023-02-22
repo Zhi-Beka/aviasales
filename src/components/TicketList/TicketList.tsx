@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import TicketCard from '../TicketCard/TicketCard';
-import { generateKey } from '../../helpers/ticketHelper';
 import { TicketsObjectType } from '../../types/ticketsType';
 
 interface ITicketListProps {
