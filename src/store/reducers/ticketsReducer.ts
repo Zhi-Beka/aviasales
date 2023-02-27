@@ -6,8 +6,9 @@ const initialState: ITicketsState = {
   searchId: '',
   error: false,
 };
+// TicketsAction
 
-export const ticketsReducer = (state = initialState, action: TicketsAction) => {
+export const ticketsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case TicketsActionTypes.TICKETS_LOADING:
       return {
@@ -16,6 +17,13 @@ export const ticketsReducer = (state = initialState, action: TicketsAction) => {
       };
 
     case TicketsActionTypes.TICKETS_SUCCESS:
+      return {
+        ...state,
+        loading: state.loading,
+        ticketsData: [...state.ticketsData],
+      };
+
+    case 'TICKETS_PART':
       return {
         ...state,
         ticketsData: [...state.ticketsData, ...action.payload],

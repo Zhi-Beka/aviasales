@@ -20,8 +20,11 @@ const cathError = (error: boolean | string) => ({
   payload: error,
 });
 
-const getTicketsData = (data: TicketsObjectType) => ({
+const getTicketsData = () => ({
   type: TicketsActionTypes.TICKETS_SUCCESS,
+});
+const getPartTicketsData = (data: TicketsObjectType) => ({
+  type: 'TICKETS_PART',
   payload: data,
 });
 
@@ -44,40 +47,40 @@ export const getIdSearch = () => {
   };
 };
 
-export const fetchTickets = (searchId: string) => {
+const fetchTickets = (searchId: string) => {
   return (dispatch: ThunkDispatch<Record<string, unknown>, Record<string, unknown>, AnyAction>) => {
-    try {
-      fetch(`${API_BASE}tickets?searchId=${searchId}`)
-        .then((data) => {
-          if (!data.ok) {
-            throw data;
-          }
-          return data.json();
-        })
-        .then(({ tickets, stop }) => {
-          const ticketsWithID = tickets.map((ticket: ITickets) => ({
-            ...ticket,
-            id: uuidv4(),
-          }));
-          dispatch(startLoading(true));
-          dispatch(getTicketsData(ticketsWithID));
-          if (!stop) dispatch(fetchTickets(searchId));
-          if (stop) {
-            dispatch(startLoading(false));
-            return;
-          }
-        })
-        .catch((error) => {
-          if (error.status === 500) {
-            dispatch(fetchTickets(searchId));
-          } else {
-            dispatch(cathError(true));
-            dispatch(startLoading(false));
-          }
-        });
-    } catch (error: any) {
-      dispatch(cathError(error?.message));
-      dispatch(startLoading(false));
-    }
+    fetch(`${API_BASE}tickets?searchId=${searchId}`)
+      .then((data) => {
+        if (!data.ok) {
+          throw data;
+        }
+        return data.json();
+      })
+      .then(({ tickets, stop }) => {
+        //const ticketsWithID = tickets.map((ticket: ITickets) => ({
+        //  ...ticket,
+        //  id: uuidv4(),
+        //}));
+        dispatch(startLoading(true));
+        if (!stop) {
+          dispatch(fetchTickets(searchId));
+          dispatch(getPartTicketsData(tickets));
+        }
+        // dispatch(getTicketsData(tickets));
+        // if (!stop) dispatch(fetchTickets(searchId));
+        if (stop) {
+          dispatch(startLoading(false));
+          dispatch(getTicketsData());
+          return;
+        }
+      })
+      .catch((error) => {
+        if (error.status === 500) {
+          dispatch(fetchTickets(searchId));
+        } else {
+          dispatch(cathError(true));
+          dispatch(startLoading(false));
+        }
+      });
   };
 };

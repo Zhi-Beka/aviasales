@@ -8,13 +8,12 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
 import { BarLoader } from 'react-spinners';
 import { useFilterTickets } from '../../hooks/useFilterCheckBox';
-import { fetchTickets } from '../../store/action-creators/tickets';
 
 const App: React.FC = () => {
   const [selectedSort, setSelectedSort] = useState('CHIP');
   const [amount, setAmount] = useState(5);
   const { getIdSearch } = useBindActions();
-  const { error, ticketsData, loading, searchId } = useTypedSelector((state) => state.tickets);
+  const { error, ticketsData, loading } = useTypedSelector((state) => state.tickets);
   const activeFilter = useTypedSelector((state) => state.filter.activeFilter);
   const filteredTickets = useFilterTickets(activeFilter, ticketsData, selectedSort);
 
@@ -22,7 +21,7 @@ const App: React.FC = () => {
     setSelectedSort(value);
   };
   const handleSliceButton = () => {
-    setAmount(amount + 5);
+    setAmount((amount: number) => amount + 5);
   };
 
   const slicedData = filteredTickets.slice(0, amount);
