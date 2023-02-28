@@ -12,7 +12,8 @@ const TicketList: FC<ITicketListProps> = (props) => {
 
   return (
     <>
-      {data?.map((el: { carrier: string; price: number; segments: any[] }) => {
+      {data?.map((el: { carrier: string; price: number; segments: any[] }, index) => {
+        el.price + el.segments[0].date + el.segments[0].duration + el.segments[1].date + el.segments[1].duration;
         return (
           <TicketCard
             key={
